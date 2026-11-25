@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del vehículo | Automotora</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f4f8;
+        color: #24344d;
+      }
+
+      header {
+        background-color: #101d35;
+        color: white;
+        text-align: center;
+        padding: 25px;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      nav {
+        background-color: #243b5a;
+        padding: 16px;
+        text-align: center;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 12px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        color: #d6aa55;
+      }
+
+      .contenedor {
+        max-width: 750px;
+        margin: 45px auto;
+        padding: 35px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #101d35;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .foto {
+        width: 100%;
+        max-height: 380px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        display: block;
+      }
+
+      .sin-foto {
+        width: 100%;
+        height: 220px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        background: #e4e8ef;
+        color: #68758a;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .dato {
+        padding: 14px;
+        border-bottom: 1px solid #e5e7eb;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+      }
+
+      .dato strong {
+        color: #243b5a;
+      }
+
+      .estado {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background-color: #e7f5e9;
+        color: #26733b;
+        font-weight: bold;
+      }
+
+      .estado.no-disponible {
+        background-color: #fdeaea;
+        color: #b42318;
+      }
+
+      .botones {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .boton {
+        flex: 1;
+        min-width: 150px;
+        display: inline-block;
+        padding: 14px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #d6aa55;
+        color: #101d35;
+        font-weight: bold;
+        border-radius: 7px;
+        transition: background-color 0.2s;
+      }
+
+      .boton:hover {
+        background-color: #c4963e;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        color: #667085;
+      }
+
+      @media (max-width: 600px) {
+        .contenedor {
+          margin: 20px;
+          padding: 20px;
+        }
+
+        nav a {
+          display: inline-block;
+          margin: 7px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Automotora</h1>
+      <p>Gestión de vehículos</p>
+    </header>
+
+    <nav>
+      <a href="{% url 'inicio' %}">Inicio</a>
+      <a href="{% url 'lista_vehiculos' %}">Vehículos</a>
+      <a href="{% url 'crear_vehiculo' %}">Agregar vehículo</a>
+    </nav>
+
+    <main class="contenedor">
+      <h2>Detalles del vehículo</h2>
+
+      {% if vehiculo.imagen_url %}
+      <img
+        src="{{ vehiculo.imagen_url }}"
+        alt="{{ vehiculo.marca }} {{ vehiculo.modelo }}"
+        class="foto"
+      />
+      {% else %}
+      <img
+        src="/static/vehiculos/img/{{ vehiculo.pk }}.jpg"
+        alt="{{ vehiculo.marca }} {{ vehiculo.modelo }}"
+        class="foto"
+        onerror="
+          this.style.display = 'none';
+          this.nextElementSibling.style.display = 'flex';
+        "
+      />
+      <div class="sin-foto" style="display: none">Sin imagen</div>
+      {% endif %}
+
+      <p class="dato">
+        <strong>Marca:</strong>
+        {{ vehiculo.marca }}
+      </p>
+
+      <p class="dato">
+        <strong>Modelo:</strong>
+        {{ vehiculo.modelo }}
+      </p>
+
+      <p class="dato">
+        <strong>Año:</strong>
+        {{ vehiculo.anio }}
+      </p>
+
+      <p class="dato">
+        <strong>Precio:</strong>
+        ${{ vehiculo.precio }}
+      </p>
+
+      <p class="dato">
+        <strong>Kilometraje:</strong>
+        {{ vehiculo.kilometraje }} km
+      </p>
+
+      <p class="dato">
+        <strong>Descripción:</strong>
+        {{ vehiculo.descripcion|default:"Sin descripción" }}
+      </p>
+
+      <p class="dato">
+        <strong>Disponibilidad:</strong>
+
+        {% if vehiculo.disponible %}
+        <span class="estado">Disponible</span>
+        {% else %}
+        <span class="estado no-disponible">No disponible</span>
+        {% endif %}
+      </p>
+
+      <div class="botones">
+        <a href="{% url 'editar_vehiculo' vehiculo.pk %}" class="boton">
+          Editar vehículo
+        </a>
+
+        <a href="{% url 'eliminar_vehiculo' vehiculo.pk %}" class="boton">
+          Eliminar vehículo
+        </a>
+
+        <a href="{% url 'lista_vehiculos' %}" class="boton">
+          Volver al listado
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <p>Automotora - Sistema de gestión de vehículos</p>
+    </footer>
+  </body>
+</html>

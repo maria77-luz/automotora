@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear vehículo | AUTOMOTORA</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f4f7;
+        margin: 0;
+      }
+
+      header {
+        background: #172b4d;
+        color: white;
+        text-align: center;
+        padding: 25px;
+      }
+
+      main {
+        max-width: 600px;
+        margin: 30px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        box-sizing: border-box;
+      }
+
+      input[type="checkbox"] {
+        width: auto;
+      }
+
+      button {
+        background: #16834a;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      .error {
+        color: #b42318;
+        background: #fee4e2;
+        padding: 10px;
+        border-radius: 6px;
+      }
+
+      a {
+        color: #172b4d;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>AUTOMOTORA</h1>
+      <p>Registrar nuevo vehículo</p>
+    </header>
+
+    <main>
+      <h2>Crear vehículo</h2>
+
+      {% if error %}
+      <p class="error">{{ error }}</p>
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <label>Marca:</label>
+        <input type="text" name="marca" required />
+
+        <label>Modelo:</label>
+        <input type="text" name="modelo" required />
+
+        <label>Año:</label>
+        <input type="number" name="anio" required />
+
+        <label>Precio:</label>
+        <input type="number" name="precio" required />
+
+        <label>Kilometraje:</label>
+        <input type="number" name="kilometraje" required />
+
+        <label>Descripción:</label>
+        <textarea name="descripcion"></textarea>
+
+        <label>URL de la imagen (opcional):</label>
+        <input type="url" name="imagen_url" placeholder="https://..." />
+
+        <label
+          ><input type="checkbox" name="disponible" checked /> Disponible</label
+        >
+
+        <button type="submit">Guardar vehículo</button>
+      </form>
+
+      <p><a href="{% url 'lista_vehiculos' %}">Volver a vehículos</a></p>
+    </main>
+  </body>
+</html>

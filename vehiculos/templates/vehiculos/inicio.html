@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio | AUTOMOTORA</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6fa;
+        color: #243047;
+      }
+
+      header {
+        background: #101d35;
+        color: white;
+        padding: 25px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 36px;
+        letter-spacing: 2px;
+      }
+
+      header span {
+        color: #d6aa55;
+      }
+
+      nav {
+        background: #243b5a;
+        padding: 18px;
+        text-align: center;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 15px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        color: #d6aa55;
+      }
+
+      main {
+        text-align: center;
+        padding: 100px 20px;
+        min-height: 420px;
+      }
+
+      main h2 {
+        color: #101d35;
+        font-size: 34px;
+        margin-bottom: 20px;
+      }
+
+      main p {
+        font-size: 18px;
+        color: #68758a;
+        margin-bottom: 25px;
+      }
+
+      .boton {
+        display: inline-block;
+        background: #d6aa55;
+        color: #101d35;
+        padding: 15px 28px;
+        border-radius: 7px;
+        text-decoration: none;
+        margin: 10px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .boton:hover {
+        background: #c49742;
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .servicios {
+        padding: 45px 8%;
+        text-align: center;
+        background: white;
+      }
+
+      .servicios h2 {
+        color: #101d35;
+        margin-bottom: 30px;
+      }
+
+      .tarjetas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .tarjeta {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: #f4f6fa;
+        padding: 30px 20px;
+        border-radius: 10px;
+        border-top: 4px solid #d6aa55;
+        transition: 0.3s;
+      }
+
+      .tarjeta:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      }
+
+      .tarjeta h3 {
+        color: #172b4d;
+        margin-bottom: 12px;
+      }
+
+      .tarjeta p {
+        color: #68758a;
+        line-height: 1.5;
+      }
+
+      footer {
+        background: #101d35;
+        color: white;
+        text-align: center;
+        padding: 22px;
+      }
+
+      @media (max-width: 600px) {
+        nav a {
+          display: inline-block;
+          margin: 8px;
+        }
+
+        main h2 {
+          font-size: 27px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>AUTO<span>MOTORA</span></h1>
+      <p>Sistema de gestión de vehículos</p>
+    </header>
+
+    <nav>
+      <a href="{% url 'inicio' %}">Inicio</a>
+      <a href="{% url 'lista_vehiculos' %}">Vehículos</a>
+      <a href="{% url 'crear_vehiculo' %}">Crear vehículo</a>
+      <a href="/admin/">Administración</a>
+    </nav>
+
+    <main>
+      <h2>Bienvenido a AUTOMOTORA</h2>
+
+      <p>Administra los vehículos de manera fácil, moderna y organizada.</p>
+
+      <a href="{% url 'lista_vehiculos' %}" class="boton"> Ver vehículos </a>
+
+      <a href="{% url 'crear_vehiculo' %}" class="boton"> Agregar vehículo </a>
+    </main>
+
+    <section class="servicios">
+      <h2>Nuestros servicios</h2>
+
+      <div class="tarjetas">
+        <a href="{% url 'lista_vehiculos' %}" class="tarjeta">
+          <h3>🚗 Vehículos</h3>
+          <p>Consulta todos los vehículos registrados.</p>
+        </a>
+
+        <a href="{% url 'crear_vehiculo' %}" class="tarjeta">
+          <h3>➕ Registrar</h3>
+          <p>Agrega nuevos vehículos al inventario.</p>
+        </a>
+
+        <a href="/admin/" class="tarjeta">
+          <h3>⚙️ Administración</h3>
+          <p>Gestiona y actualiza la información.</p>
+        </a>
+      </div>
+    </section>
+
+    <footer>AUTOMOTORA | Sistema de gestión de vehículos © 2026</footer>
+  </body>
+</html>
